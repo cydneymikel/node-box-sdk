@@ -1,0 +1,5 @@
+--reporter spec
+--recursive
+--ui bdd
+--globals box,options
+--globals shared_link,folderId,fileId,downloadURI,documentId

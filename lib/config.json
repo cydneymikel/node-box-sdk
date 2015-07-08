@@ -1,0 +1,12 @@
+{
+  "oauth": "https://app.box.com/api/oauth2",
+  "content": {
+    "base": "https://api.box.com/2.0",
+    "upload": "https://upload.box.com/api/2.0"
+  },
+  "view": {
+    "base": "https://view-api.box.com/1",
+    "upload": "https://upload.view-api.box.com/1"
+  },
+  "headers": {}
+}
