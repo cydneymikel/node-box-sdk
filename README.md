@@ -6,7 +6,7 @@ This module interacts with the Box Content and View APIs.  The Node.js Box SDK m
 
 It abstracts away some of the complexity in regards to updating the Box Token upon expiration.  However, provides flexibility for the developer to handle the Box callback and storage of the encrypted Box Token on a user by user basis.  
 
-Examples of how to integrate this module in Express & Hapi are shown below.  The examples provided show how to attach the node-box-sdk to the server object and then set the return token as a cookie.
+Examples of how to integrate this module into Express as middleware and into Hapi as a plugin are located in the examples folder.  The examples provided show how to attach the node-box-sdk to the server object and then set the returned encrypted token as a cookie.
 
 ### Status
 #####Content API
@@ -42,7 +42,7 @@ Examples of how to integrate this module in Express & Hapi are shown below.  The
 
 
 ### Inspiration + References
-Link mixins and Dynamic REST API Generator - [Paypal SDK](https://github.com/paypal/PayPal-node-SDK)
+API link mixins and dynamic REST API generator - [Paypal SDK](https://github.com/paypal/PayPal-node-SDK)
 
 Testing with Casper & PhantomJS - [Node Box](https://github.com/adityamukho/node-box-sdk)
 
