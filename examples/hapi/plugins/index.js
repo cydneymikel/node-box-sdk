@@ -1,7 +1,8 @@
 var box = require('../../../box');
 
 exports.register = function (server, config, next) {
-  
+
+  // ADD YOUR CONFIGURATIONS HERE
   box.configure({
     client_id: '',
     client_secret: '',
