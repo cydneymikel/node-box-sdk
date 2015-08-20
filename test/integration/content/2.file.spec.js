@@ -1,3 +1,4 @@
+var async   = require('async');
 var chai    = require('chai');
 var expect  = chai.expect;
 var fs      = require('fs');
@@ -16,7 +17,6 @@ describe('Box File Operations', function() {
     var data = { name: 'Penguin Facts', folder: global.folderId, file: file, filename: 'penguin_fact_sheet.pdf' };
     
     box.content.file.upload(data, global.options, function(err, res, tokens) {
-      console.log(res)
       expect(res.body).to.have.property('entries');
       expect(res.body.entries[0]).to.have.property('id');
       expect(res.body.entries[0]).to.have.property('type', 'file');
@@ -63,6 +63,66 @@ describe('Box File Operations', function() {
 
       global.downloadURI = res.redirects[0];
       global.options = { tokens: tokens };
+      done();
+    });
+  });
+
+  // POST Copy File
+  var copiedFile;
+  it('should create a copy of a file in another folder.', function(done) {
+    var data = { parent: { id: 0 } };
+    box.content.file.copy(global.fileId, data, global.options, function(err, res, tokens) {
+      expect(res.body).to.have.property('id');
+      expect(res.body).to.have.property('type', 'file');
+      expect(res.body).to.have.property('name');
+
+      copiedFile = res.body;
+      global.options = { tokens: tokens };
+      done();
+    });
+  });
+
+  // DELETE File
+  it('should delete folder from box', function(done) {
+    box.content.file.delete(copiedFile.id, global.options, function(err, res, tokens) {
+      expect(res.statusCode).to.equal(204);
+
+      global.options = { tokens: tokens };
+      done();
+    });
+  });
+
+  // POST Restore File
+  it('should restore a file from trash', function(done) {
+    box.content.file.restore(copiedFile.id, {}, global.options, function(err, res, tokens) {
+      expect(res.body).to.have.property('id');
+      expect(res.body).to.have.property('type', 'file');
+      expect(res.body).to.have.property('name');
+
+      global.options = { tokens: tokens };
+      done();
+    });
+  });
+
+  // DELETE Trash and then Permanently Delete File
+  it('should permanently delete a file', function(done) {
+    async.series({
+      remove: function(next) {
+        box.content.file.delete(copiedFile.id, global.options, function(err, res, tokens) {
+          global.options = { tokens: tokens };
+          next(err, res);
+        });
+      },
+      destroy: function(next) {
+        box.content.file.destroy(copiedFile.id, global.options, function(err, res, tokens) {
+          global.options = { tokens: tokens };
+          next(err, res);
+        });
+      }
+    }, function(err, result) {
+      expect(result.remove.statusCode).to.equal(204);
+      expect(result.destroy.statusCode).to.equal(204);
+
       done();
     });
   });

@@ -1,5 +1,6 @@
-var chai = require('chai');
-var expect = chai.expect;
+var async   = require('async');
+var chai    = require('chai');
+var expect  = chai.expect;
 
 describe('Box Folder Operations', function() {
   var box = global.box;
@@ -89,8 +90,7 @@ describe('Box Folder Operations', function() {
     var data = { parent: { id : 0 }, name: "AnotherBoxTest" };
     box.content.folder.copy(global.folderId, data, global.options, function(err, res, tokens) {
       expect(res.body).to.have.property('id');
-      copiedFolder = data;
-      copiedFolder.id = res.body.id;
+      copiedFolder = res.body;
 
       expect(res.body).to.have.property('name', data.name);
       expect(res.body).to.have.property('item_collection');
@@ -137,7 +137,7 @@ describe('Box Folder Operations', function() {
 
   // POST Restore Folder
   it('should restore a folder from trash', function(done) {
-    box.content.folder.restore(global.folderId, global.options, function(err, res, tokens) {
+    box.content.folder.restore(global.folderId, {}, global.options, function(err, res, tokens) {
       expect(res.body).to.have.property('id', global.folderId);
       expect(res.body).to.have.property('type', 'folder');
       expect(res.body).to.have.property('item_status', 'active');
@@ -148,11 +148,24 @@ describe('Box Folder Operations', function() {
   });
 
   // DELETE Permanently Delete Folder
-  it('should permanently delete a folder.', function(done) {
-    box.content.folder.destroy(copiedFolder.id, global.options, function(err, res, tokens) {
-      console.log(copiedFolder.id)
+  it('should permanently delete a folder', function(done) {
+    async.series({
+      remove: function(next) {
+        box.content.folder.delete(copiedFolder.id, global.options, function(err, res, tokens) {
+          global.options = { tokens: tokens };
+          next(err, res);
+        });
+      },
+      destroy: function(next) {
+        box.content.folder.destroy(copiedFolder.id, global.options, function(err, res, tokens) {
+          global.options = { tokens: tokens };
+          next(err, res);
+        });
+      }
+    }, function(err, result) {
+      expect(result.remove.statusCode).to.equal(204);
+      expect(result.destroy.statusCode).to.equal(204);
 
-      global.options = { tokens: tokens };
       done();
     });
   });
