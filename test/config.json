@@ -1,8 +1,12 @@
 {
-  "client_id": "",
-  "client_secret": "",
-  "api_key": "",
-  "encrypt": { "password": "node-box" },
-  "username": "",
-  "password": ""
+  "box": {
+    "client_id": "", //required
+    "client_secret": "", //required
+    "api_key": "", //required
+    "encrypt": { "password": "" } //optional
+  },
+  "headlessClient": {
+    "userName": "", //required for tests
+    "password": "" //required for tests
+  }
 }

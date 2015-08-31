@@ -10,12 +10,7 @@ describe('Box Intialize', function() {
   this.timeout(20000);
   
   var redirect;
-  box.configure({
-    client_id: config.client_id,
-    client_secret: config.client_secret,
-    api_key: config.api_key,
-    encrypt: { password: config.encrypt.password }
-  });
+  box.configure(config.box);
   global.box = box;
 
   describe('Box Auth URL', function() {
@@ -50,9 +45,12 @@ describe('Box Intialize', function() {
       });
     });
 
-    it('should generate encrypted tokens for user', function(done) {
+    it('should generate tokens for user', function(done) {
       box.generateToken({ authorization_code: code }, function(err, tokens) {
-        expect(tokens).to.be.a('string');
+        if (config.box.encrypt)
+          expect(tokens).to.be.a('string');
+        else 
+          expect(tokens).to.be.an('object');
 
         global.options = { tokens: tokens };
         done();

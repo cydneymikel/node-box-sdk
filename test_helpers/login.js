@@ -2,10 +2,7 @@ var config = require('../test/config');
 var casper = require('casper').create({
     verbose: true,
     logLevel: 'error',
-    pageSettings: {
-       userName: config.username,
-       password: config.password
-    }
+    pageSettings: config.headlessClient
 });
 casper.options.waitTimeout = 10000;
 

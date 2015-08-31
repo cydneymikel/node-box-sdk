@@ -8,6 +8,10 @@
   },
   "author": "Cydney Auman",
   "license": "MIT",
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/cydneymikel/node-box-sdk"
+  },
   "dependencies": {
     "async": "^1.2.0",
     "lodash": "^3.8.0",
@@ -21,5 +25,10 @@
     "express": "^4.13.0",
     "hapi": "^8.6.1",
     "mocha": "^2.2.4"
-  }
+  },
+  "keywords": [
+    "Box",
+    "Box API",
+    "File Sharing"
+  ]
 }

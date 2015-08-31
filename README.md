@@ -36,10 +36,10 @@ Examples of how to integrate this module into Express as middleware and into Hap
 
 ### Configure
     box.configure({
-      client_id: 'content_api_client_id',
-      client_secret: 'content_api_client_secret',
-      api_key: 'view_api_client_secret',
-      encrypt: { password: 'pick_a_password' }
+      client_id: 'content_api_client_id',             // REQUIRED
+      client_secret: 'content_api_client_secret',     // REQUIRED
+      api_key: 'view_api_client_secret',              // REQUIRED
+      encrypt: { password: 'pick_a_password' }        // OPTIONAL
     });
     
 
