@@ -2,9 +2,7 @@
 
 Node.js module for both [Box.com Content API](https://box-content.readme.io/) & [Box.com View API](https://box-view.readme.io/)
 
-This module interacts with the Box Content and View APIs.  The Node.js Box SDK module returns the data requested as well as an encrypted string containing the Box Access Token and Box Refresh Token.  
-
-It abstracts away some of the complexity in regards to updating the Box Token upon expiration.  However, provides flexibility for the developer to handle the Box callback and storage of the encrypted Box Token on a user by user basis.  
+The purpose of this module is to provide an efficient and intentional method of interacting with the Box APIs.  This SDK wraps both the Box Content and View API  Thus, it is important to understand the Box APIs at the REST endpoint level.  You are strongly encouraged to read the Box documentation.
 
 Examples of how to integrate this module into Express as middleware and into Hapi as a plugin are located in the examples folder.  The examples provided show how to attach the node-box-sdk to the server object, set the returned encrypted token string as a cookie and how to use this encrypted token string with the node-box-sdk methods. 
 
@@ -58,7 +56,9 @@ Returns the URL of Box’s authorization page in the response.redirect. This is 
       box.authorize(state, function(err, res) { });
 
 #### Generate Tokens
-Returns the access tokens as an encrypted string. This encrypted token string can be set as cookie in a web application on a user by user basis.  This encrypted token string will need to be stored and used in all subsequent calls in the node-box-sdk.
+Returns the access tokens.  If the box client was configured using encrypt with a password then the tokens will be returned as an encrypted string.  Otherwise the tokens will be returned as an object. Either the encrypted token string or the token object will need to be persisted, because the box client will handle refreshing the authorization tokens as needed. 
+
+One option is to set the encrypted token string as cookie in a web application.  Examples of this strategy are provided.
 
       box.generateToken({ authorization_code: code }, function(err, tokens) { });
 
@@ -125,4 +125,3 @@ Returns a full folder object in the response.body if the parent folder ID is val
 API link mixins and dynamic REST API generator - [Paypal SDK](https://github.com/paypal/PayPal-node-SDK)
 
 Testing with Casper & PhantomJS - [Node Box](https://github.com/adityamukho/node-box-sdk)
-
