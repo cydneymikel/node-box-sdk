@@ -6,6 +6,8 @@ The purpose of this module is to provide an efficient and intentional method of 
 
 Examples of how to integrate this module into Express as middleware and into Hapi as a plugin are located in the examples folder.  The examples provided show how to attach the node-box-sdk to the server object, set the returned encrypted token string as a cookie and how to use this encrypted token string with the node-box-sdk methods. 
 
+Contributors Welcome!
+
 ### Status
 #####Content API
 
@@ -82,6 +84,11 @@ Returns a full folder object in the response.body.
 
     box.content.folder.get(folderID, { tokens: tokens }, function(err, res, tokens) { });
 
+#### Items
+Returns the files and/or folders contained within this folder in the response.body.
+
+    box.content.folder.items(folderID, { tokens: tokens }, function(err, res, tokens) { });
+
 #### Update
 Returns a full folder object in the response.body.
 
@@ -107,6 +114,56 @@ Returns a full folder object in the response.body if the parent folder ID is val
 
     var data = { parent: { id : 0 }, name: "AnotherBoxTest" };
     box.content.folder.copy(folderID, data, { tokens: tokens }, function(err, res, tokens) { });    
+
+#### Restore
+Restores a full folder object that is in the trash.
+
+    box.content.folder.restore(folderID, {}, { tokens: tokens }, function(err, res, tokens) { });
+
+#### Trash
+View the files and/or folders that have been moved to the trash.
+
+    box.content.folder.trash(null, { tokens: tokens }, function(err, res, tokens) { });
+
+View a specific folders that has been moved to the trash.
+
+    box.content.folder.trash(folderID, { tokens: tokens }, function(err, res, tokens) { });
+
+#### Share
+Creates a shared link for this folder, returns a full folder object in the response.body.
+    
+    var data = { shared_link: { } }; // default access
+    box.content.folder.share(folderID, data, { tokens: tokens }, function(err, res, tokens) { });   
+
+#### Collaborations
+Returns a list of all the collaborations on a folder.
+
+    box.content.folder.collaborations(folderID, { tokens: tokens }, function(err, res, tokens) { });   
+
+----------
+
+
+###File Operations
+All methods have a 3rd argument in the callback function 'tokens'.  Each time the node-box-sdk callsback with the access tokens as an encrypted string.  
+
+The reason for this is because - iIf the access token was expired, node-box-sdk will attempt to refresh this token and then returns the updated version of the access tokens as an encrypted string.  If no refresh was needed then it returns the same access tokens as an encrypted string.
+
+    // TODO update docs
+
+----------
+
+###Shared Items Operations
+All methods have a 3rd argument in the callback function 'tokens'.  Each time the node-box-sdk callsback with the access tokens as an encrypted string.  
+
+The reason for this is because - iIf the access token was expired, node-box-sdk will attempt to refresh this token and then returns the updated version of the access tokens as an encrypted string.  If no refresh was needed then it returns the same access tokens as an encrypted string.
+
+    // TODO update docs
+
+----------
+
+## View API
+
+    // TODO update docs
 
 
 ----------
