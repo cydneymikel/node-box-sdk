@@ -1,5 +1,13 @@
 # Node.js Box SDK
 
+----------
+
+### Deprecated
+ Six months ago Box released their official node module.  This has since been deprecated in favor of support development efforts there.
+ https://github.com/box/box-node-sdk
+
+----------
+
 Node.js module for both [Box.com Content API](https://box-content.readme.io/) & [Box.com View API](https://box-view.readme.io/)
 
 The purpose of this module is to provide an efficient and intentional method of interacting with the Box APIs.  This SDK wraps both the Box Content and View API  Thus, it is important to understand the Box APIs at the REST endpoint level.  You are strongly encouraged to read the Box documentation.
