@@ -3,7 +3,7 @@
 ----------
 
 ### Deprecated
- Six months ago Box released their official node module.  This has since been deprecated in favor of support development efforts there.
+ Six months ago Box released their official node module.  This has since been deprecated in favor of supporting development efforts there.
  https://github.com/box/box-node-sdk
 
 ----------
